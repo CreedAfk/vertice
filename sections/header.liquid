@@ -1,0 +1,88 @@
+<header class="site-header" data-site-header>
+  <div class="site-header__inner">
+    <button class="site-header__menu-toggle" data-mobile-menu-toggle aria-label="Abrir menu">
+      <span></span><span></span><span></span>
+    </button>
+
+    <a href="/" class="site-header__logo">
+      {%- if section.settings.logo != blank -%}
+        <img src="{{ section.settings.logo | image_url: width: 300 }}" alt="{{ shop.name }}" width="{{ section.settings.logo_width }}" loading="eager">
+      {%- else -%}
+        <span class="site-header__logo-text">{{ shop.name }}</span>
+        {%- if section.settings.slogan != blank -%}
+          <span class="site-header__slogan">{{ section.settings.slogan }}</span>
+        {%- endif -%}
+      {%- endif -%}
+    </a>
+
+    <nav class="site-header__nav" data-desktop-nav>
+      <ul>
+        {%- for link in section.settings.menu.links -%}
+          <li>
+            <a href="{{ link.url }}">{{ link.title }}</a>
+            {%- if link.links != blank -%}
+              <ul class="site-header__submenu">
+                {%- for child in link.links -%}
+                  <li><a href="{{ child.url }}">{{ child.title }}</a></li>
+                {%- endfor -%}
+              </ul>
+            {%- endif -%}
+          </li>
+        {%- endfor -%}
+      </ul>
+    </nav>
+
+    <div class="site-header__actions">
+      <button class="site-header__icon-btn" data-search-toggle aria-label="Buscar">
+        {%- render 'icon', icon: 'search' -%}
+      </button>
+      <a href="{{ routes.account_url }}" class="site-header__icon-btn" aria-label="Conta">
+        {%- render 'icon', icon: 'account' -%}
+      </a>
+      <button class="site-header__icon-btn site-header__cart-btn" data-cart-drawer-open aria-label="Sacola">
+        {%- render 'icon', icon: 'cart' -%}
+        <span class="site-header__cart-count" data-cart-count>{{ cart.item_count }}</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="site-header__search" data-search-panel hidden>
+    <form action="{{ routes.search_url }}" method="get" role="search">
+      <input type="search" name="q" placeholder="O que você procura?" value="{{ search.terms | escape }}">
+      <button type="submit">{%- render 'icon', icon: 'search' -%}</button>
+    </form>
+  </div>
+</header>
+
+<div class="mobile-menu" data-mobile-menu aria-hidden="true">
+  <div class="mobile-menu__overlay" data-mobile-menu-close></div>
+  <div class="mobile-menu__panel">
+    <button class="mobile-menu__close" data-mobile-menu-close aria-label="Fechar menu">&times;</button>
+    <ul>
+      {%- for link in section.settings.menu.links -%}
+        <li>
+          <a href="{{ link.url }}">{{ link.title }}</a>
+          {%- if link.links != blank -%}
+            <ul>
+              {%- for child in link.links -%}
+                <li><a href="{{ child.url }}">{{ child.title }}</a></li>
+              {%- endfor -%}
+            </ul>
+          {%- endif -%}
+        </li>
+      {%- endfor -%}
+    </ul>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Cabeçalho",
+  "settings": [
+    { "type": "image_picker", "id": "logo", "label": "Logo" },
+    { "type": "range", "id": "logo_width", "label": "Largura do logo", "min": 80, "max": 300, "step": 10, "default": 140, "unit": "px" },
+    { "type": "text", "id": "slogan", "label": "Slogan (se não usar logo)", "default": "Escolhas inteligentes." },
+    { "type": "link_list", "id": "menu", "label": "Menu principal", "default": "main-menu" }
+  ]
+}
+{% endschema %}

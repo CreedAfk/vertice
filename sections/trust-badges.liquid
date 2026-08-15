@@ -1,0 +1,44 @@
+<section class="trust-badges">
+  <div class="trust-badges__inner">
+    {%- for block in section.blocks -%}
+      <div class="trust-badge" {{ block.shopify_attributes }}>
+        {%- render 'icon', icon: block.settings.icon -%}
+        <div>
+          <strong>{{ block.settings.title }}</strong>
+          <span>{{ block.settings.text }}</span>
+        </div>
+      </div>
+    {%- endfor -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Selos de confiança",
+  "blocks": [
+    {
+      "type": "badge",
+      "name": "Selo",
+      "settings": [
+        { "type": "select", "id": "icon", "label": "Ícone", "default": "truck", "options": [
+          { "value": "truck", "label": "Caminhão" },
+          { "value": "shield", "label": "Escudo" },
+          { "value": "refresh", "label": "Troca" }
+        ]},
+        { "type": "text", "id": "title", "label": "Título", "default": "Entrega rápida" },
+        { "type": "text", "id": "text", "label": "Descrição", "default": "Para todo o Brasil" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Selos de confiança",
+      "blocks": [
+        { "type": "badge", "settings": { "icon": "truck", "title": "Entrega rápida", "text": "Para todo o Brasil" } },
+        { "type": "badge", "settings": { "icon": "shield", "title": "Compra segura", "text": "Pagamento protegido" } },
+        { "type": "badge", "settings": { "icon": "refresh", "title": "Troca fácil", "text": "7 dias para trocar" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

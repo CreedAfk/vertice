@@ -1,0 +1,22 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero-banner",
+      "blocks": {
+        "slide-1": { "type": "slide", "settings": {} }
+      },
+      "block_order": ["slide-1"]
+    },
+    "badges": {
+      "type": "trust-badges",
+      "blocks": {
+        "badge-1": { "type": "badge", "settings": { "icon": "truck", "title": "Entrega rápida", "text": "Para todo o Brasil" } },
+        "badge-2": { "type": "badge", "settings": { "icon": "shield", "title": "Compra segura", "text": "Pagamento protegido" } },
+        "badge-3": { "type": "badge", "settings": { "icon": "refresh", "title": "Troca fácil", "text": "7 dias para trocar" } }
+      },
+      "block_order": ["badge-1", "badge-2", "badge-3"]
+    },
+    "featured": { "type": "featured-collection" }
+  },
+  "order": ["hero", "badges", "featured"]
+}

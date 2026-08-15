@@ -1,0 +1,73 @@
+<section class="product">
+  <div class="product__media">
+    {%- if product.featured_image -%}
+      <div class="product__main-image">
+        <img id="ProductMainImage" src="{{ product.featured_image | image_url: width: 900 }}" alt="{{ product.featured_image.alt | escape }}">
+      </div>
+      {%- if product.images.size > 1 -%}
+        <div class="product__thumbnails">
+          {%- for image in product.images -%}
+            <button class="product__thumb {% if forloop.first %}is-active{% endif %}" data-thumb data-full="{{ image | image_url: width: 900 }}">
+              <img src="{{ image | image_url: width: 150 }}" alt="{{ image.alt | escape }}">
+            </button>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+    {%- else -%}
+      <div class="product__placeholder"></div>
+    {%- endif -%}
+  </div>
+
+  <div class="product__info">
+    <h1>{{ product.title }}</h1>
+
+    <div class="product__price" data-product-price>
+      {%- if product.compare_at_price > product.price -%}
+        <s>{{ product.compare_at_price | money }}</s>
+        <span class="price--sale">{{ product.price | money }}</span>
+      {%- else -%}
+        <span>{{ product.price | money }}</span>
+      {%- endif -%}
+    </div>
+
+    {%- form 'product', product -%}
+      <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}" data-variant-id>
+
+      {%- unless product.has_only_default_variant -%}
+        {%- for option in product.options_with_values -%}
+          <div class="product__option">
+            <label>{{ option.name }}</label>
+            <select name="options[{{ option.name | escape }}]" data-option-selector>
+              {%- for value in option.values -%}
+                <option value="{{ value | escape }}" {% if option.selected_value == value %}selected{% endif %}>{{ value }}</option>
+              {%- endfor -%}
+            </select>
+          </div>
+        {%- endfor -%}
+      {%- endunless -%}
+
+      <div class="product__quantity">
+        <label for="Quantity">Quantidade</label>
+        <input type="number" id="Quantity" name="quantity" value="1" min="1">
+      </div>
+
+      <button type="submit" class="button button--primary button--full" {% unless product.available %}disabled{% endunless %} data-add-to-cart>
+        {%- if product.available -%}Adicionar à sacola{%- else -%}Esgotado{%- endif -%}
+      </button>
+    {%- endform -%}
+
+    <div class="product__description rte">
+      {{ product.description }}
+    </div>
+
+    {%- render 'trust-badges-inline' -%}
+  </div>
+
+  <script type="application/json" data-product-json>
+    {{ product | json }}
+  </script>
+</section>
+
+{% schema %}
+{ "name": "Produto", "settings": [] }
+{% endschema %}

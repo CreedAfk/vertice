@@ -1,0 +1,15 @@
+{
+  "current": "Default",
+  "presets": {
+    "Default": {
+      "color_background": "#ffffff",
+      "color_text": "#111111",
+      "color_primary": "#111111",
+      "color_primary_text": "#ffffff",
+      "color_border": "#e5e5e5",
+      "font_heading": "helvetica_n4",
+      "font_body": "helvetica_n4",
+      "page_width": 1280
+    }
+  }
+}

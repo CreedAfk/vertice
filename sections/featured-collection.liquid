@@ -1,0 +1,37 @@
+<section class="featured-collection">
+  <div class="featured-collection__header">
+    <h2>{{ section.settings.heading }}</h2>
+    {%- if section.settings.collection != blank -%}
+      <a href="{{ section.settings.collection.url }}" class="featured-collection__link">Ver tudo</a>
+    {%- endif -%}
+  </div>
+
+  <div class="product-grid product-grid--{{ section.settings.columns }}">
+    {%- if section.settings.collection != blank -%}
+      {%- for product in section.settings.collection.products limit: section.settings.products_to_show -%}
+        {%- render 'product-card', product: product -%}
+      {%- endfor -%}
+    {%- else -%}
+      {%- for i in (1..section.settings.products_to_show) -%}
+        {%- render 'product-card' -%}
+      {%- endfor -%}
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Coleção em destaque",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Título", "default": "Selecionados para você" },
+    { "type": "collection", "id": "collection", "label": "Coleção" },
+    { "type": "range", "id": "products_to_show", "label": "Produtos exibidos", "min": 2, "max": 12, "step": 1, "default": 8 },
+    { "type": "select", "id": "columns", "label": "Colunas (desktop)", "default": "4", "options": [
+      { "value": "2", "label": "2" },
+      { "value": "3", "label": "3" },
+      { "value": "4", "label": "4" }
+    ]}
+  ],
+  "presets": [{ "name": "Coleção em destaque" }]
+}
+{% endschema %}

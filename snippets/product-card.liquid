@@ -1,0 +1,39 @@
+<div class="product-card">
+  <a href="{{ product.url | default: '#' }}" class="product-card__media">
+    {%- if product.featured_image -%}
+      <img
+        src="{{ product.featured_image | image_url: width: 600 }}"
+        srcset="{{ product.featured_image | image_url: width: 400 }} 400w, {{ product.featured_image | image_url: width: 600 }} 600w, {{ product.featured_image | image_url: width: 800 }} 800w"
+        sizes="(min-width: 990px) 25vw, 50vw"
+        alt="{{ product.featured_image.alt | escape }}"
+        loading="lazy"
+      >
+      {%- if product.images.size > 1 -%}
+        <img
+          class="product-card__media-hover"
+          src="{{ product.images[1] | image_url: width: 600 }}"
+          alt=""
+          loading="lazy"
+        >
+      {%- endif -%}
+    {%- else -%}
+      <div class="product-card__placeholder"></div>
+    {%- endif -%}
+
+    {%- if product.compare_at_price > product.price -%}
+      <span class="badge badge--sale">Oferta</span>
+    {%- endif -%}
+  </a>
+
+  <div class="product-card__info">
+    <h3 class="product-card__title">{{ product.title | default: 'Nome do produto' }}</h3>
+    <div class="product-card__price">
+      {%- if product.compare_at_price > product.price -%}
+        <s>{{ product.compare_at_price | money }}</s>
+        <span class="price--sale">{{ product.price | money }}</span>
+      {%- else -%}
+        <span>{{ product.price | default: 0 | money }}</span>
+      {%- endif -%}
+    </div>
+  </div>
+</div>

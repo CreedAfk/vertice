@@ -1,0 +1,24 @@
+{%- if section.settings.enabled -%}
+<div class="announcement-bar" style="background:{{ section.settings.background }}; color:{{ section.settings.text_color }};">
+  <div class="announcement-bar__inner">
+    {%- if section.settings.link != blank -%}
+      <a href="{{ section.settings.link }}">{{ section.settings.text }}</a>
+    {%- else -%}
+      <span>{{ section.settings.text }}</span>
+    {%- endif -%}
+  </div>
+</div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Barra de aviso",
+  "settings": [
+    { "type": "checkbox", "id": "enabled", "label": "Ativar", "default": true },
+    { "type": "text", "id": "text", "label": "Texto", "default": "Frete grátis em compras acima de R$ 199" },
+    { "type": "url", "id": "link", "label": "Link (opcional)" },
+    { "type": "color", "id": "background", "label": "Cor de fundo", "default": "#111111" },
+    { "type": "color", "id": "text_color", "label": "Cor do texto", "default": "#ffffff" }
+  ]
+}
+{% endschema %}

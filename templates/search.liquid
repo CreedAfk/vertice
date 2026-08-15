@@ -1,0 +1,14 @@
+<section class="search-results">
+  <h1>Resultados para "{{ search.terms }}"</h1>
+  {%- if search.results_count == 0 -%}
+    <p>Nenhum resultado encontrado.</p>
+  {%- else -%}
+    <div class="product-grid product-grid--4">
+      {%- for item in search.results -%}
+        {%- if item.object_type == 'product' -%}
+          {%- render 'product-card', product: item -%}
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  {%- endif -%}
+</section>

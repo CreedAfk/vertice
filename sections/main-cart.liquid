@@ -1,0 +1,45 @@
+<section class="cart-page">
+  <h1>Sua sacola</h1>
+
+  {%- if cart.item_count == 0 -%}
+    <p>Sua sacola está vazia.</p>
+    <a href="/collections/all" class="button button--primary">Continuar comprando</a>
+  {%- else -%}
+    {%- form 'cart', cart -%}
+      <table class="cart-table">
+        <thead>
+          <tr><th>Produto</th><th>Preço</th><th>Quantidade</th><th>Total</th></tr>
+        </thead>
+        <tbody>
+          {%- for item in cart.items -%}
+            <tr>
+              <td class="cart-table__product">
+                {%- if item.image -%}<img src="{{ item.image | image_url: width: 120 }}" alt="{{ item.title | escape }}">{%- endif -%}
+                <div>
+                  <a href="{{ item.url }}">{{ item.product.title }}</a>
+                  {%- unless item.variant.title == 'Default Title' -%}<span>{{ item.variant.title }}</span>{%- endunless -%}
+                </div>
+              </td>
+              <td>{{ item.price | money }}</td>
+              <td><input type="number" name="updates[{{ item.key }}]" value="{{ item.quantity }}" min="0"></td>
+              <td>{{ item.line_price | money }}</td>
+            </tr>
+          {%- endfor -%}
+        </tbody>
+      </table>
+
+      <div class="cart-summary">
+        <div class="cart-summary__total">
+          <span>Subtotal</span>
+          <span>{{ cart.total_price | money }}</span>
+        </div>
+        <button type="submit" name="update" class="button">Atualizar sacola</button>
+        <button type="submit" name="checkout" class="button button--primary">Finalizar compra</button>
+      </div>
+    {%- endform -%}
+  {%- endif -%}
+</section>
+
+{% schema %}
+{ "name": "Sacola", "settings": [] }
+{% endschema %}

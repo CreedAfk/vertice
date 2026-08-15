@@ -1,0 +1,45 @@
+<footer class="site-footer">
+  <div class="site-footer__inner">
+    <div class="site-footer__brand">
+      <h3>{{ shop.name }}</h3>
+      <p>{{ section.settings.about_text }}</p>
+    </div>
+
+    <div class="site-footer__menu">
+      <h4>{{ section.settings.menu_title }}</h4>
+      <ul>
+        {%- for link in section.settings.menu.links -%}
+          <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+        {%- endfor -%}
+      </ul>
+    </div>
+
+    <div class="site-footer__newsletter">
+      <h4>Fique por dentro</h4>
+      <p>Receba novidades e ofertas exclusivas.</p>
+      {%- form 'customer', class: 'footer-newsletter-form' -%}
+        <input type="hidden" name="contact[tags]" value="newsletter">
+        <input type="email" name="contact[email]" placeholder="Seu e-mail" required>
+        <button type="submit">Cadastrar</button>
+        {%- if form.posted_successfully? -%}
+          <p class="form-success">Cadastro feito com sucesso!</p>
+        {%- endif -%}
+      {%- endform -%}
+    </div>
+  </div>
+
+  <div class="site-footer__bottom">
+    <span>&copy; {{ 'now' | date: '%Y' }} {{ shop.name }}. Todos os direitos reservados.</span>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Rodapé",
+  "settings": [
+    { "type": "textarea", "id": "about_text", "label": "Texto sobre a loja", "default": "Produtos selecionados com curadoria para escolhas inteligentes." },
+    { "type": "text", "id": "menu_title", "label": "Título do menu", "default": "Institucional" },
+    { "type": "link_list", "id": "menu", "label": "Menu do rodapé", "default": "footer" }
+  ]
+}
+{% endschema %}
