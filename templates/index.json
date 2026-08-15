@@ -12,16 +12,6 @@
     "hero": {
       "type": "hero-banner",
       "blocks": {
-        "slide_NE4C4Y": {
-          "type": "slide",
-          "settings": {
-            "heading": "Escolhas inteligentes.",
-            "text": "Produtos selecionados com curadoria.",
-            "button_label": "Ver produtos",
-            "button_link": "",
-            "text_position": "left"
-          }
-        },
         "slide-1": {
           "type": "slide",
           "settings": {
@@ -35,7 +25,6 @@
         }
       },
       "block_order": [
-        "slide_NE4C4Y",
         "slide-1"
       ],
       "settings": {
