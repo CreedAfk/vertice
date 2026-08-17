@@ -67,19 +67,33 @@
       ],
       "settings": {}
     },
-    "featured": {
-      "type": "featured-collection",
+    "hero_banner_XmFzaX": {
+      "type": "hero-banner",
+      "blocks": {
+        "slide_X8MPWA": {
+          "type": "slide",
+          "settings": {
+            "heading": "Escolhas inteligentes.",
+            "text": "Produtos selecionados com curadoria.",
+            "button_label": "Ver produtos",
+            "button_link": "shopify://collections/all",
+            "text_position": "left"
+          }
+        }
+      },
+      "block_order": [
+        "slide_X8MPWA"
+      ],
+      "name": "Banner principal",
       "settings": {
-        "heading": "Selecionados para você",
-        "collection": "",
-        "products_to_show": 8,
-        "columns": "4"
+        "autoplay": true,
+        "autoplay_speed": 5
       }
     }
   },
   "order": [
     "hero",
     "badges",
-    "featured"
+    "hero_banner_XmFzaX"
   ]
 }
